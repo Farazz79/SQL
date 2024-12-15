@@ -1,0 +1,73 @@
+-- Create Database
+CREATE DATABASE School;
+
+-- Use the School Database
+USE School;
+
+-- Create Students Table
+CREATE TABLE Students (
+    StudentID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DateOfBirth DATE,
+    Gender CHAR(1),
+    EnrollmentDate DATE
+);
+
+-- Insert Data into Students Table
+INSERT INTO Students (StudentID, FirstName, LastName, DateOfBirth, Gender, EnrollmentDate)
+VALUES (1, 'John', 'Doe', '2005-01-15', 'M', '2020-09-01');
+
+-- Query Data from Students Table
+SELECT * FROM Students;
+
+-- Update Data in Students Table
+UPDATE Students
+SET FirstName = 'Jane', LastName = 'Doe'
+WHERE StudentID = 1;
+
+-- Delete Data from Students Table
+DELETE FROM Students
+WHERE StudentID = 1;
+
+-- Drop the Students Table
+DROP TABLE Students;
+
+-- Drop the School Database
+DROP DATABASE School;
+
+-- Create Courses Table
+CREATE TABLE Courses (
+    CourseID INT PRIMARY KEY,
+    CourseName VARCHAR(100)
+);
+
+-- Create Enrollments Table with Foreign Keys
+CREATE TABLE Enrollments (
+    EnrollmentID INT PRIMARY KEY,
+    StudentID INT,
+    CourseID INT,
+    EnrollmentDate DATE,
+    FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
+    FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
+);
+
+-- Create Index on LastName
+CREATE INDEX idx_lastname
+ON Students (LastName);
+
+-- Select Students where Gender is 'M'
+SELECT * FROM Students
+WHERE Gender = 'M';
+
+-- Select Students and Sort by Last Name
+SELECT * FROM Students
+ORDER BY LastName;
+
+-- Count Total Students
+SELECT COUNT(*) AS TotalStudents FROM Students;
+
+-- Group Students by Gender and Count them
+SELECT Gender, COUNT(*) AS CountByGender
+FROM Students
+GROUP BY Gender;
